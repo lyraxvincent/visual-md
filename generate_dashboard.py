@@ -33,30 +33,35 @@ def get_codeCells(line_numbers):
     return code_cells
 
 
-def insert_images(code_cells, image_calls):
+def insert_images(code_cells, image_calls, include_code=True):
     """
 
     :param code_cells:
     :param image_calls:
+    :param include_code: Whether to include code cells associated with the plots or not
+                         defaults to True
     :return: a string document with all contents(plots and their associated code) that
              will be exported as markdown
-
     """
 
     document = """<h1 style="text-align: center;">Plots</h1>\n\n-----\n\n"""
 
-    for code_cell, img_call in zip(code_cells, image_calls):
-        document += ('```python\n' + code_cell + "\n" + img_call + "\n")
+    if include_code:
+        for code_cell, img_call in zip(code_cells, image_calls):
+            document += ('```python\n' + code_cell + "\n" + img_call + "\n")
+    else:
+        for img_call in image_calls:
+            document += ("\n" + img_call + "\n")
 
     return document
 
 
 # Applying functions to md file
 cells = get_codeCells(line_numbers=line_numbers)
-doc = insert_images(cells, image_calls=img_calls)
+doc = insert_images(cells, image_calls=img_calls, include_code=False)
 
 
 # export document
-with open("testfiles/plots_with_their_code.md", "w") as output_file:
+with open("testfiles/plots_dashboard.md", "w") as output_file:
     output_file.write(doc)
     output_file.close()
