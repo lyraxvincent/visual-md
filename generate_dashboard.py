@@ -1,16 +1,19 @@
 import os
+import sys
 
-# convert ipynb to md
-nb_path = "testfiles/epl_bets_pred.ipynb"
-os.system(f"jupyter nbconvert {nb_path} --to markdown")
+input_file = sys.argv[1]
+output_file = sys.argv[2]
 
-fname = f"{nb_path.split('.')[0]}.md"
+# convert jupyter notebook(ipynb) to markdown(md)
+os.system(f"jupyter nbconvert {input_file} --to markdown")
+
+fname = f"{input_file.split('.')[0]}.md"
 
 line_numbers = []
 img_calls = []
+
 for l_number, l in enumerate(open(fname, "r").readlines(), start=1):
     if l.startswith("```"):
-        # append l_number to line_numbers
         line_numbers.append(l_number)
     elif l.startswith("![png]"):
         img_calls.append(l)
@@ -21,9 +24,12 @@ def get_codeCells(line_numbers):
 
     :param line_numbers:
     :return: list of code cells with their associated code in the form:
+
                 ```python
+
                 >>> python code
                 >>> more python code
+
                 ```
     """
 
@@ -65,10 +71,10 @@ def insert_images(code_cells, image_calls, include_code=True):
 
 # Applying functions to md file
 cells = get_codeCells(line_numbers=line_numbers)
-doc = insert_images(cells, image_calls=img_calls, include_code=True)
+doc = insert_images(cells, image_calls=img_calls, include_code=False)
 
 
 # export document
-with open("testfiles/plots_dashboard.md", "w") as output_file:
-    output_file.write(doc)
-    output_file.close()
+with open(output_file, "w") as out_file:
+    out_file.write(doc)
+    out_file.close()
