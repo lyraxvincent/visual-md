@@ -61,7 +61,7 @@ def insert_images(code_cells, image_calls, include_code=str(include_code)):
              will be exported as markdown
     """
 
-    document = """<h1 style="text-align: center;">Plots</h1>\n\n-----\n\n"""
+    document = """<h1 align="center">Plots</h1>\n\n-----\n\n"""
 
     if include_code == "--include-code":
         for code_cell, img_call in zip(code_cells, image_calls):
