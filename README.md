@@ -21,3 +21,6 @@ plots from the notebook):
 ```python
 python generate_dashboard.py [input_notebook.ipynb] [output_file.md] --include-code
 ```
+
+## **License**
+This project is provided under the MIT License.
