@@ -9,8 +9,17 @@ for l_number, l in enumerate(open(fname, "r").readlines(), start=1):
     elif l.startswith("![png]"):
         img_calls.append(l)
 
-# grab line number pairs in which between them is a code cell
-def get_codecells(line_numbers):
+
+def get_codeCells(line_numbers):
+    """
+
+    :param line_numbers:
+    :return: list of code cells with their associated code in the form:
+                ```python
+                >>> python code
+                >>> more python code
+                ```
+    """
 
     code_cells = []
     for idx in range(len(line_numbers)-1):
@@ -24,19 +33,26 @@ def get_codecells(line_numbers):
     return code_cells
 
 
-# inserting images
 def insert_images(code_cells, image_calls):
-    # document string to export as markdown file
+    """
+
+    :param code_cells:
+    :param image_calls:
+    :return: a string document with all contents(plots and their associated code) that
+             will be exported as markdown
+
+    """
+
     document = """<h1 style="text-align: center;">Plots</h1>\n\n-----\n\n"""
 
-    for img_call, code_cell in zip(image_calls, code_cells):
+    for code_cell, img_call in zip(code_cells, image_calls):
         document += ('```python\n' + code_cell + "\n" + img_call + "\n")
 
     return document
 
 
 # Applying functions to md file
-cells = get_codecells(line_numbers=line_numbers)
+cells = get_codeCells(line_numbers=line_numbers)
 doc = insert_images(cells, image_calls=img_calls)
 
 
