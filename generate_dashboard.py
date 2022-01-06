@@ -1,4 +1,10 @@
-fname = "testfiles/epl_bets_pred.md"
+import os
+
+# convert ipynb to md
+nb_path = "testfiles/epl_bets_pred.ipynb"
+os.system(f"jupyter nbconvert {nb_path} --to markdown")
+
+fname = f"{nb_path.split('.')[0]}.md"
 
 line_numbers = []
 img_calls = []
@@ -30,6 +36,7 @@ def get_codeCells(line_numbers):
         if ('plt.' in code_cell) or ('sns.' in code_cell) and ('import' not in code_cell):
             code_cells.append(code_cell)
 
+    os.remove(fname)
     return code_cells
 
 
@@ -58,7 +65,7 @@ def insert_images(code_cells, image_calls, include_code=True):
 
 # Applying functions to md file
 cells = get_codeCells(line_numbers=line_numbers)
-doc = insert_images(cells, image_calls=img_calls, include_code=False)
+doc = insert_images(cells, image_calls=img_calls, include_code=True)
 
 
 # export document
