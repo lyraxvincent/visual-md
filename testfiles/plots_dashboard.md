@@ -1,4 +1,4 @@
-<h1 style="text-align: center;">Plots</h1>
+<h1 align="center">Plots</h1>
 
 -----
 
