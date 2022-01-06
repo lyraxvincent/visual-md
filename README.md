@@ -1,4 +1,4 @@
-## **visual-md**
+<h1 align="center">visual-md</h1>
 
 -----
 
