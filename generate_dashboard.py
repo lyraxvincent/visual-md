@@ -3,6 +3,10 @@ import sys
 
 input_file = sys.argv[1]
 output_file = sys.argv[2]
+try:
+    include_code = sys.argv[3]
+except:
+    include_code = ''
 
 # convert jupyter notebook(ipynb) to markdown(md)
 os.system(f"jupyter nbconvert {input_file} --to markdown")
@@ -46,7 +50,7 @@ def get_codeCells(line_numbers):
     return code_cells
 
 
-def insert_images(code_cells, image_calls, include_code=True):
+def insert_images(code_cells, image_calls, include_code=str(include_code)):
     """
 
     :param code_cells:
@@ -59,7 +63,7 @@ def insert_images(code_cells, image_calls, include_code=True):
 
     document = """<h1 style="text-align: center;">Plots</h1>\n\n-----\n\n"""
 
-    if include_code:
+    if include_code == "--include-code":
         for code_cell, img_call in zip(code_cells, image_calls):
             document += ('```python\n' + code_cell + "\n" + img_call + "\n")
     else:
@@ -71,7 +75,7 @@ def insert_images(code_cells, image_calls, include_code=True):
 
 # Applying functions to md file
 cells = get_codeCells(line_numbers=line_numbers)
-doc = insert_images(cells, image_calls=img_calls, include_code=False)
+doc = insert_images(cells, image_calls=img_calls, include_code=include_code)
 
 
 # export document
