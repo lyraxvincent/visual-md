@@ -1,5 +1,7 @@
 <h1 align="center">visual-md</h1>
 
+<img align="center" src="assets/visual-md.gif" width="500" height="300" alt="gif"/>
+
 -----
 
 From your jupyter notebooks to a static dashboard made in pure markdown.  
