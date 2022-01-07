@@ -1,6 +1,9 @@
-<h1 align="center">visual-md</h1>
+<h1></h1>
 
-<img style="align: center" src="assets/visual-md.gif" width="600" height="350" alt="gif"/>
+<p align="center">
+<img src="assets/visual-md.gif" width="600" height="350" alt="gif"/>
+</p>
+
 
 -----
 
