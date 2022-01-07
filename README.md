@@ -1,6 +1,6 @@
 <h1 align="center">visual-md</h1>
 
-<img style="display: block; margin-left: auto; margin-right: auto;" src="assets/visual-md.gif" width="800" height="350" alt="gif"/>
+<img style="display: block; margin-left: auto; margin-right: auto;" src="assets/visual-md.gif" width="600" height="350" alt="gif"/>
 
 -----
 
