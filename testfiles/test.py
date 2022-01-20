@@ -65,10 +65,15 @@ def insert_images(code_cells, image_calls, include_code=str(include_code)):
 
     if include_code == "--include-code":
         for code_cell, img_call in zip(code_cells, image_calls):
-            document += ('```python\n' + code_cell + "\n" + img_call + "\n")
+
+            # centered image
+            img_call_centered = f"""\n<p align="center">\n\t<img src='{img_call.split(']')[-1].strip().strip(')').strip('(')}', alt='plot'/>\n</p>\n"""
+
+            document += ('```python\n' + code_cell + "\n" + img_call_centered + "\n")
     else:
         for img_call in image_calls:
-            document += ("\n" + img_call + "\n")
+            img_call_centered = f"""\n<p align="center">\n\t<img src='{img_call.split(']')[-1].strip().strip(')').strip('(')}', alt='plot'/>\n</p>\n"""
+            document += ("\n" + img_call_centered + "\n")
 
     return document
 
