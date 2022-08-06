@@ -108,9 +108,11 @@ def insert_images(code_cells, image_calls, include_code: bool):
     return document
 
 
-def main(args):
+def main(args=None):
 
-    args = parse_args(args)
+    if args is None:
+        args = parse_args(args)
+
     setup_logging(logging.INFO)
 
     # convert jupyter notebook(ipynb) to markdown(md)
