@@ -2,6 +2,7 @@ import os
 import argparse
 import logging
 import sys
+from _version import __version__
 
 _logger = logging.getLogger(__name__)
 
@@ -29,6 +30,7 @@ def parse_args(args):
       :obj:`argparse.Namespace`: command line parameters namespace
     """
     parser = argparse.ArgumentParser(description="visual-md: jupyter notebooks to visual reports.")
+    parser.add_argument('-v', '--version', action='version', version=f'%(prog)s {__version__}')
     parser.add_argument(
         "--include-code",
         "--include-code",

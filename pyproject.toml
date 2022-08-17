@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "visual-md"
-version = "0.1.4"
+version = "0.1.5"
 description = ""
 authors = ["lyraxvincent <njongevincent@gmail.com>"]
 
