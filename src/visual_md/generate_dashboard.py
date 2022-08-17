@@ -52,10 +52,12 @@ def parse_args(args):
     return parser.parse_args(args)
 
 
-def get_codeCells(line_numbers, fname):
+def get_codeCells(line_numbers, img_line_numbers, fname):
     """
 
     :param line_numbers:
+    :param img_line_numbers: image line numbers
+    :param fname: actual file name of input file
     :return: list of code cells with their associated code in the form:
 
                 ```python
@@ -67,16 +69,21 @@ def get_codeCells(line_numbers, fname):
     """
 
     code_cells = []
-    for idx in range(len(line_numbers)-1):
 
-        code_cell = open(fname, "r").readlines()[line_numbers[idx]:line_numbers[idx+1]]
+    for idx in range(len(line_numbers) - 1):
+
+        code_cell = open(fname, "r").readlines()[line_numbers[idx]:line_numbers[idx + 1]]
         code_cell = ''.join(code_cell)
 
-        if ('plt.' in code_cell) or ('sns.' in code_cell) and ('import' not in code_cell):
-            code_cells.append(code_cell)
+        for n in img_line_numbers:
+            try:
+                if (n > line_numbers[idx+1]) & (n < line_numbers[idx+2]):
+                    code_cells.append(code_cell)
+            except Exception:
+                pass
 
     os.remove(fname)
-    
+
     return code_cells
 
 
@@ -108,6 +115,27 @@ def insert_images(code_cells, image_calls, include_code: bool):
     return document
 
 
+def get_code_img_lines(fname):
+    """
+    Get code and image line numbers
+    :param fname: file name of notebook to convert
+    :return:
+    """
+
+    line_numbers = []
+    img_calls = []
+    img_line_numbers = []
+
+    for l_number, l in enumerate(open(fname, "r").readlines(), start=1):
+        if l.startswith("```"):
+            line_numbers.append(l_number)
+        elif l.startswith("![png]"):
+            img_calls.append(l)
+            img_line_numbers.append(l_number)
+
+    return line_numbers, img_calls, img_line_numbers
+
+
 def main(args=None):
 
     if args is None:
@@ -119,16 +147,10 @@ def main(args=None):
     input_file = args.input
     os.system(f"jupyter nbconvert {input_file} --to markdown")
     fname = f"{'.'.join(input_file.split('.')[:-1])}.md"
-    line_numbers = []
-    img_calls = []
 
-    for l_number, l in enumerate(open(fname, "r").readlines(), start=1):
-        if l.startswith("```"):
-            line_numbers.append(l_number)
-        elif l.startswith("![png]"):
-            img_calls.append(l)
+    line_numbers, img_calls, img_line_numbers = get_code_img_lines(fname)
 
-    code_cells = get_codeCells(line_numbers, fname)
+    code_cells = get_codeCells(line_numbers, img_line_numbers, fname)
 
     document = insert_images(code_cells, image_calls=img_calls, include_code=args.include_code)
 
