@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "visual-md"
-version = "0.1.5"
+version = "0.1.6"
 description = ""
 authors = ["lyraxvincent <njongevincent@gmail.com>"]
 
@@ -9,6 +9,7 @@ python = "^3.8"
 build = "^0.8.0"
 
 [tool.poetry.dev-dependencies]
+ipython = "^8.4.0"
 
 [build-system]
 #requires = ["poetry-core>=1.0.0"]

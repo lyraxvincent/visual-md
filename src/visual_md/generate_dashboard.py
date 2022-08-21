@@ -2,7 +2,7 @@ import os
 import argparse
 import logging
 import sys
-from _version import __version__
+from visual_md import __version__
 
 _logger = logging.getLogger(__name__)
 
