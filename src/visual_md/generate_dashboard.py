@@ -164,4 +164,4 @@ def main(args=None):
     _logger.info(f"saved output file as [{args.output}]")
 
 if __name__ == "__main__":
-    main(sys.argv[1:])
+    main()
