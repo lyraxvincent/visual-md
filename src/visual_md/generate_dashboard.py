@@ -3,11 +3,12 @@ import argparse
 import logging
 import sys
 from visual_md import __version__
+from typing import Optional, List, Tuple
 
 _logger = logging.getLogger(__name__)
 
 
-def setup_logging(loglevel):
+def setup_logging(loglevel: str) -> None:
     """Setup basic logging
 
     Args:
@@ -19,7 +20,7 @@ def setup_logging(loglevel):
     )
 
 
-def parse_args(args):
+def parse_args(args: List[str]):
     """Parse command line parameters
 
     Args:
@@ -54,7 +55,9 @@ def parse_args(args):
     return parser.parse_args(args)
 
 
-def get_codeCells(line_numbers, img_line_numbers, fname):
+def get_codeCells(line_numbers: List[int],
+                  img_line_numbers: List[int],
+                  fname: str) -> List[str]:
     """
 
     :param line_numbers:
@@ -89,7 +92,9 @@ def get_codeCells(line_numbers, img_line_numbers, fname):
     return code_cells
 
 
-def insert_images(code_cells, image_calls, include_code: bool):
+def insert_images(code_cells: List[str],
+                  image_calls: List[str],
+                  include_code: bool) -> str:
     """
 
     :param code_cells:
@@ -117,7 +122,7 @@ def insert_images(code_cells, image_calls, include_code: bool):
     return document
 
 
-def get_code_img_lines(fname):
+def get_code_img_lines(fname: str) -> Tuple[List[int], List[str], List[int]]:
     """
     Get code and image line numbers
     :param fname: file name of notebook to convert
@@ -138,7 +143,7 @@ def get_code_img_lines(fname):
     return line_numbers, img_calls, img_line_numbers
 
 
-def main(args=None):
+def main(args: Optional[List] = None) -> None:
 
     if args is None:
         args = parse_args(args)
