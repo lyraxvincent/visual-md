@@ -8,7 +8,7 @@ from typing import Optional, List, Tuple
 _logger = logging.getLogger(__name__)
 
 
-def setup_logging(loglevel: str) -> None:
+def setup_logging(loglevel: int) -> None:
     """Setup basic logging
 
     Args:
